@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div id="vue-container">
@@ -12,40 +14,46 @@
         <div class="screen">
             <!-- //////////////////ENEMY POKEMONN////////////////// -->
             <div class="enemy-pokemon-stat">
-                <h3 class="pokemon">Onyx</h3>
+                <h3 class="pokemon">{{enemyPokemon.name}}</h3>
                 <div class="enemy-lifebar">
-                    <div class="life" style="width: 100%"></div>
+                    <div class="life" :style="{width: enemyPokemon.hp + '%'}"></div>
                 </div>
-                <p class="level">Lvl. 50</p>
+                <p class="level">Lvl. {{enemyPokemon.lvl}}</p>
             </div>
             <!-- /////////////////////////////// -->
             <div class="enemy-pokemon-img">
-                <img src="" alt="">
+                <img class="enemy-char" :src="enemyPokemon.img" alt="">
             </div>
             <!-- ////////////////MYPOKEMONNNNNNNNN//////////////// -->
             <div class="my-pokemon-img">
-                <img src="" alt="">
+                <img class="my-char" :src="myPokemon.img" alt="">
             </div>
             <!-- ////////////////////////////////////// -->
             <div class="my-pokemon-stat">
-                <h3 class="pokemon">Charizard</h3>
+                <h3 class="pokemon">{{myPokemon.name}}</h3>
                 <div class="my-lifebar">
-                    <div class="life" style="width: 100%"></div>
+                    <div class="life" :style="{width: myPokemon.hp + '%'}"></div>
                 </div>
-                <p class="level">Lvl. 50</p>
-                <h4 class="hp">100/100</h4>
+                <p class="level">Lvl. {{myPokemon.lvl}}</p>
+                <h4 class="hp">{{myPokemon.hp}}/100</h4>
             </div>
 
             <!-- //////////MENUUUUUUU///////////// -->
             <div class="menu-container">
-                <div class="menu-log">
+                <div  class="menu-log">
                     What will charizard do?
                 </div>
-                <div class="menu-selector">
-                    <h4 class="fight">Fight</h4>
+                <div v-if="startFight === false" class="menu-selector">
+                    <h4 @click="toggleFight()" class="fight">Fight</h4>
                     <h4 class="pokemon-men">Pokemon</h4>
                     <h4 class="item">Item</h4>
                     <h4 class="run">Run</h4>
+                </div>
+                <div v-else class="menu-selector">
+                    <h4 class="fight">{{myPokemon.ability.n1}}</h4>
+                    <h4 class="pokemon-men">{{myPokemon.ability.n2}}</h4>
+                    <h4 class="item">{{myPokemon.ability.n3}}</h4>
+                    <h4 class="run">{{myPokemon.ability.n4}}</h4>
                 </div>
             </div>
 
