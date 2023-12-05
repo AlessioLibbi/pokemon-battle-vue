@@ -1,18 +1,25 @@
 body {
-   
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+  
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100%;
     background-image: url(./img/visual-pokemon-desk.jpg);
-    background-color: green;
+    background-color: red;
     background-repeat: no-repeat;
     background-position: center;
 }
 .title {
     position: relative;
     margin-top: 10px;
-    color: white;
+    color: red;
     text-align: center;
     font-size: 28px;
     text-transform: uppercase;
@@ -225,3 +232,21 @@ body {
     bottom: 10px;
     left: 40px;
 }
+.container {
+    position: absolute;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+    width: 600px;
+    height: 420px;
+    background-image: url(./img/pokemon-pictures-fw1l53kqy2o4e5p1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+    border: 40px solid red;
+    top: 230px;
+}
+

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,57 +9,83 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script defer src="script.js"></script>
 </head>
+
 <body>
-    <div id="vue-container">
-        <h1 class="title">Pokemon</h1>
-        <div class="screen">
-            <!-- //////////////////ENEMY POKEMONN////////////////// -->
-            <div class="enemy-pokemon-stat">
-                <h3 class="pokemon">{{enemyPokemon.name}}</h3>
-                <div class="enemy-lifebar">
-                    <div class="life" :style="{width: enemyPokemon.hp + '%'}"></div>
-                </div>
-                <p class="level">Lvl. {{enemyPokemon.lvl}}</p>
-            </div>
-            <!-- /////////////////////////////// -->
-            <div class="enemy-pokemon-img">
-                <img class="enemy-char" :src="enemyPokemon.img" alt="">
-            </div>
-            <!-- ////////////////MYPOKEMONNNNNNNNN//////////////// -->
-            <div class="my-pokemon-img">
-                <img class="my-char" :src="myPokemon.img" alt="">
-            </div>
-            <!-- ////////////////////////////////////// -->
-            <div class="my-pokemon-stat">
-                <h3 class="pokemon">{{myPokemon.name}}</h3>
-                <div class="my-lifebar">
-                    <div class="life" :style="{width: myPokemon.hp + '%'}"></div>
-                </div>
-                <p class="level">Lvl. {{myPokemon.lvl}}</p>
-                <h4 class="hp">{{myPokemon.hp}}/100</h4>
-            </div>
 
-            <!-- //////////MENUUUUUUU///////////// -->
-            <div class="menu-container">
-                <div  class="menu-log">
-                    What will charizard do?
+    <div class="body">
+        <div id="vue-container">
+            <h1 class="title">Nintendo DS</h1>
+            <div class="screen">
+                <!-- //////////////////ENEMY POKEMONN////////////////// -->
+                <div class="enemy-pokemon-stat">
+                    <h3 class="pokemon">{{enemyPokemon.name}}</h3>
+                    <div class="enemy-lifebar">
+                        <div class="life" :style="enemyPokemonBarStyle"></div>
+                    </div>
+                    <p class="level">Lvl. {{enemyPokemon.lvl}}</p>
                 </div>
-                <div v-if="startFight === false" class="menu-selector">
-                    <h4 @click="toggleFight()" class="fight">Fight</h4>
-                    <h4 class="pokemon-men">Pokemon</h4>
-                    <h4 class="item">Item</h4>
-                    <h4 class="run">Run</h4>
+                <!-- /////////////////////////////// -->
+                <div class="enemy-pokemon-img">
+                    <img class="enemy-char" :src="enemyPokemon.img" alt="">
                 </div>
-                <div v-else class="menu-selector">
-                    <h4 class="fight">{{myPokemon.ability.n1}}</h4>
-                    <h4 class="pokemon-men">{{myPokemon.ability.n2}}</h4>
-                    <h4 class="item">{{myPokemon.ability.n3}}</h4>
-                    <h4 class="run">{{myPokemon.ability.n4}}</h4>
+                <!-- ////////////////MYPOKEMONNNNNNNNN//////////////// -->
+                <div class="my-pokemon-img">
+                    <img class="my-char" :src="myPokemon.img" alt="">
                 </div>
-            </div>
+                <!-- ////////////////////////////////////// -->
+                <div class="my-pokemon-stat">
+                    <h3 class="pokemon">{{myPokemon.name}}</h3>
+                    <div class="my-lifebar">
+                        <div class="life" :style="myPokemonBarStyle"></div>
+                    </div>
+                    <p class="level">Lvl. {{myPokemon.lvl}}</p>
+                    <h4 class="hp">{{myPokemon.myHp}}/100</h4>
+                </div>
 
+                <!-- //////////MENUUUUUUU///////////// -->
+                <div class="menu-container">
+                    <div v-if="startFight === false" class="menu-log">
+                        What will charizard do?
+                    </div>
+                    <div v-else-if="startFight && switchAbili === ''" class="menu-log">
+                        The Battle Is Started!!!
+                    </div>
+
+                    <div v-else-if="switchAbili !== ''" class="menu-log">
+                        {{switchAbili}}
+                    </div>
+                    <div v-if="startFight === false"  class="menu-selector">
+                        <h4 @click="toggleFight()" class="fight">Fight</h4>
+                        <h4 class="pokemon-men">Pokemon</h4>
+                        <h4 class="item">Item</h4>
+                        <h4 class="run">Run</h4>
+                    </div>
+                    <div v-else class="menu-selector">
+                        <h4 @click="myPokemonAttack(myPokemon.ability.n1)" class="fight">{{myPokemon.ability.n1}}</h4>
+                        <h4 @click="myPokemonAttack(myPokemon.ability.n2)" class="pokemon-men">{{myPokemon.ability.n2}}
+                        </h4>
+                        <h4 @click="myPokemonAttack(myPokemon.ability.n3)" class="item">{{myPokemon.ability.n3}}</h4>
+                        <h4 @click="myPokemonAttack(myPokemon.ability.n4)" class="run">{{myPokemon.ability.n4}}</h4>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <section v-if="this.winner" class="container">
+                <div class="winnermessage">
+                    <h2 class="title">Game Over!</h2>
+                    <h3 class="title" v-if="winner === 'Blastoise'">You Lost!</h3>
+                    <h3 class="title" v-else-if="winner === 'CHarizard'">You Won!</h3>
+                    <h3 class="title" v-else-if="winner === 'draw'">Draw!</h3>
+                    <button class="title" @click="startNewBattle">Start New Game</button>
+                </div>
+
+            </section>
         </div>
+
     </div>
-    
+
 </body>
+
 </html>
